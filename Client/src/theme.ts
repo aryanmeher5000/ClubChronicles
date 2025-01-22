@@ -35,7 +35,7 @@ const theme: ThemeConfig = extendTheme({
     },
   },
   styles: {
-    global: (props) => {
+    global: (props: { colorMode: string }) => {
       return {
         "html body": {
           width: "100%",
