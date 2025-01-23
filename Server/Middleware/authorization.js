@@ -77,7 +77,7 @@ const roleToAccesibleEndpointsMap = {
 
 function authorizationMiddleware(req, res, next) {
   // Check if user is authenticated
-  if (!req.user) return res.status(401).json({ message: "Authorization denied! Login first." });
+  if (!req.user) return res.status(401).json({ error: "Authorization denied! Login first." });
 
   // Clip parameter if any
   const fullPath = req.route?.path || "";
@@ -87,7 +87,7 @@ function authorizationMiddleware(req, res, next) {
   // Verify role has access to endpoint
   const accessibleEndpoints = roleToAccesibleEndpointsMap[userRole];
   if (!accessibleEndpoints || !accessibleEndpoints.includes(endpointWithoutId)) {
-    return res.status(403).json({ message: "Authorization denied! You cannot access this path." });
+    return res.status(403).json({ error: "Authorization denied! You cannot access this path." });
   }
 
   next();

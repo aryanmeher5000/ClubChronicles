@@ -18,7 +18,7 @@ const DepartmentDashboard = () => {
       <Divider mb={4} />
 
       <Button
-        className="updateButton"
+        colorScheme="yellow"
         leftIcon={<GrUpdate />}
         isDisabled={isLoading}
         onClick={() => nav(`updateDepartment/${profile?.department}`)}
@@ -44,7 +44,7 @@ function StartApplications({ appliStatus, isLoading }: { appliStatus: string; is
   const { mutate, isPending } = useStartApplications();
   return (
     <Button
-      className="createButton"
+      colorScheme="green"
       leftIcon={<AddIcon />}
       onClick={() => mutate("OPEN")}
       isDisabled={isPending || appliStatus === "OPEN" || isLoading}
@@ -58,7 +58,7 @@ function StopApplications({ appliStatus, isLoading }: { appliStatus: string; isL
   const { mutate, isPending } = useStopApplications();
   return (
     <Button
-      className="deleteButton"
+      colorScheme="red"
       my={4}
       leftIcon={<SmallCloseIcon />}
       onClick={() => mutate("CLOSED")}

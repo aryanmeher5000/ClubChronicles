@@ -1,4 +1,4 @@
-import { Box, Flex, SimpleGrid, Skeleton, useColorModeValue } from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
 
 const SkeletonCardsOnly = () => {
   const arrayMap = [1, 2, 3, 4, 5, 6];
@@ -13,13 +13,12 @@ const SkeletonCardsOnly = () => {
 };
 
 const CardsMapper = (id: number) => {
-  const bg = useColorModeValue("blackAlpha.100", "whiteAlpha.100");
   return (
-    <Flex key={id} w="100%" bg={bg} p={4} borderRadius={15} direction="column" gap={4}>
+    <Box className="card" key={id} w="100%" gap={4}>
       <Skeleton width="100%" h="50px" borderRadius={20} />
       <Skeleton width="100%" h="20px" borderRadius={20} />
       <Skeleton width="100%" h="20px" borderRadius={20} />
-    </Flex>
+    </Box>
   );
 };
 

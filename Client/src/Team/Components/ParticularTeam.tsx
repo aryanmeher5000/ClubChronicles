@@ -107,25 +107,14 @@ const ParticularTeam = () => {
 const ProfileCard = ({ _id, name, profilePic, role }: ProfileCardData) => {
   const nav = useNavigate();
   return (
-    <Flex
-      key={_id}
-      w="fit-content"
-      maxW="30vh"
-      p={2}
-      px={5}
-      gap={2}
-      borderRadius={15}
-      border="2px solid #444"
-      cursor="pointer"
-      _hover={{ bg: "#333" }}
-      onClick={() => nav(`/profile/${_id}`)}
-    >
+    <Flex key={_id} className="card" maxW="30vh" gap={3} onClick={() => nav(`/profile/${_id}`)}>
       <Avatar src={profilePic && createImageUrlFromId(profilePic)} size={["lg", "lg", "xl"]} variant="subtle" name={name} />
       <Text fontWeight="500" fontSize={["lg", "lg", "xl"]}>
         {name.slice(0, name.indexOf(" "))}
       </Text>
+
       {role && (
-        <Text color="#03b57b" fontWeight={500}>
+        <Text color="green.300" fontWeight={500}>
           {role === "CAPTAIN" ? "Captain" : "Vice Captain"}
         </Text>
       )}

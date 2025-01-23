@@ -1,5 +1,5 @@
 import { AddIcon, CloseIcon } from "@chakra-ui/icons";
-import { Avatar, Divider, Flex, Heading, Select, Text } from "@chakra-ui/react";
+import { Avatar, Divider, Flex, Heading, Select, Text, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import LoadingSpinner from "../../Utilities/LoadingSpinner";
@@ -81,7 +81,7 @@ const ManageTeam = () => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <Flex color="#fff" direction="column" alignItems="center" p={4}>
+    <Flex direction="column" alignItems="center">
       <Heading textAlign="center">Player Management</Heading>
       <Divider mb={4} />
 
@@ -140,8 +140,9 @@ function UserList({ title, users, type, callbackFxn }: ListProps) {
 }
 
 function UserListItem({ user, type, callbackFxn }: UserProps) {
+  const bg = useColorModeValue("blackAlpha.200", "whiteAlpha.200");
   return (
-    <Flex borderRadius={15} justifyContent="space-between" alignItems="center" bg="#151515" key={user?._id}>
+    <Flex borderRadius={15} bg={bg} justifyContent="space-between" alignItems="center" key={user?._id}>
       <Flex p={2} alignItems="center" gap={2}>
         <Avatar name={user?.name} size="sm" src={user?.profilePic && createImageUrlFromId(user.profilePic)} />
         <Link to={`/profile/${user?._id}`}>{user?.name?.length > 60 ? user.name.slice(0, 60) : user.name}</Link>
@@ -152,7 +153,6 @@ function UserListItem({ user, type, callbackFxn }: UserProps) {
           p={1}
           fontSize="lg"
           borderRadius={20}
-          color="#fff"
           mr={4}
           cursor="pointer"
           aria-label="Remove player"
@@ -164,7 +164,6 @@ function UserListItem({ user, type, callbackFxn }: UserProps) {
           p={1}
           fontSize="lg"
           borderRadius={20}
-          color="#fff"
           mr={4}
           cursor="pointer"
           aria-label="Add player"
@@ -188,7 +187,6 @@ const SelectComponent = ({
 }) => (
   <Select
     placeholder={placeholder}
-    border="2px solid #444"
     mb={4}
     value={selectedValue}
     disabled={users.length === 0}

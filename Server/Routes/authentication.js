@@ -67,7 +67,7 @@ router.post("/login", inputSanitizer, inputValidator(loginSchema), async (req, r
 
 // TOKEN REFRESH
 router.post("/refreshToken", async (req, res) => {
-  const userRefreshToken = req.cookies["refreshToken"];
+  const userRefreshToken = req.cookies.refreshToken;
   if (!userRefreshToken) {
     return res
       .status(403)

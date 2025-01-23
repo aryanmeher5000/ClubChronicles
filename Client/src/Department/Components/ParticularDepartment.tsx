@@ -36,12 +36,14 @@ const ParticularDepartment = () => {
           <Divider my={2} />
 
           {data?.body.about && (
-            <Text fontWeight={500} fontSize="md">
-              About
-            </Text>
+            <Box>
+              <Text fontWeight={500} fontSize="md">
+                About
+              </Text>
+              <Text>{data?.body.about}</Text>
+              <Divider my={2} />
+            </Box>
           )}
-          <Text>{data?.body.about}</Text>
-          <Divider my={2} />
 
           <Text fontSize="lg" fontWeight="medium">
             Sports Lead - {data?.body.sportsLead ? data.body.sportsLead : " Yet to be elected."}

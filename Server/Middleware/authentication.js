@@ -16,10 +16,10 @@ function authenticationAndTokenDecoding(req, res, next) {
     next();
   } catch (ex) {
     if (ex.name === "TokenExpiredError") return res.status(401).json({ error: "Unknown error occurred! Please login!" });
-    else if (ex.name === "JsonWebTokenError") return res.status(403).json({ message: "Invalid token." });
+    else if (ex.name === "JsonWebTokenError") return res.status(403).json({ error: "Invalid token." });
     else {
       winston.error(ex?.message, ex);
-      return res.status(500).json({ message: "Internal server error." });
+      return res.status(500).json({ error: "Internal server error." });
     }
   }
 }

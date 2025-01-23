@@ -33,19 +33,23 @@ const Profile = () => {
           <Divider my={2} />
 
           {data?.body.about && (
-            <Text fontWeight={500} fontSize="md">
-              About
-            </Text>
+            <Box w="100%">
+              <Text fontWeight={500} fontSize="md">
+                About
+              </Text>
+              <Text>{data?.body.about}</Text>
+              <Divider my={2} />
+            </Box>
           )}
-          <Text>{data?.body.about}</Text>
-          <Divider my={2} />
 
           {data?.body.achievements && (
-            <Text fontWeight={500} fontSize="md">
-              Achievements
-            </Text>
+            <Box w="100%">
+              <Text fontWeight={500} fontSize="md">
+                Achievements
+              </Text>
+              <Text>{data?.body?.achievements}</Text>
+            </Box>
           )}
-          <Text>{data?.body?.achievements}</Text>
         </Flex>
       </Flex>
 

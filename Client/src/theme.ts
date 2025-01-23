@@ -44,8 +44,8 @@ const theme: ThemeConfig = extendTheme({
           bg: props.colorMode === "dark" ? "blackAlpha.900" : "whiteAlpha.900",
         },
         ".card": {
-          bg: props.colorMode === "dark" ? "whiteAlpha.100" : "gray.100",
-          _hover: { bg: props.colorMode === "dark" ? "whiteAlpha.200" : "gray.200" },
+          bg: props.colorMode === "dark" ? "whiteAlpha.200" : "gray.100",
+          _hover: { bg: props.colorMode === "dark" ? "whiteAlpha.100" : "gray.200" },
           borderRadius: 15,
           padding: 4,
           cursor: "pointer",

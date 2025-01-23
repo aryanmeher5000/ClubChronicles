@@ -62,7 +62,7 @@ const ManageTeams = () => {
         />
         <HStack mt={2} gap={2} justifyContent="space-evenly">
           <Button
-            className="updateButton"
+            colorScheme="yellow"
             leftIcon={<GrUpdate />}
             onClick={() => nav(`updateTeam/${data._id}`)}
             isDisabled={isPending || isLoading}
@@ -70,7 +70,7 @@ const ManageTeams = () => {
             Update
           </Button>
           <Button
-            className="deleteButton"
+            colorScheme="red"
             leftIcon={<DeleteIcon />}
             onClick={() => handleDelete(data._id)}
             isDisabled={isPending || isLoading}
@@ -78,7 +78,7 @@ const ManageTeams = () => {
             Delete
           </Button>
           <Button
-            className="createButton"
+            colorScheme="green"
             leftIcon={<MdOutlineManageAccounts />}
             onClick={() => nav(`manageTeam/${data._id}`)}
             isDisabled={isPending || isLoading}
