@@ -71,6 +71,7 @@ function fileCleanupMiddleware() {
     };
 
     res.once("finish", cleanup);
+    res.once("close", cleanup);
     next();
   };
 }

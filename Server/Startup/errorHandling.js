@@ -28,8 +28,5 @@ module.exports = async function (err, req, res, next) {
   }
 
   // Send error response
-  return res.status(statusCode).json({
-    error: message,
-    ...(process.env.NODE_ENV === "development" && { details: err.message }), // Include details in dev mode
-  });
+  return res.status(statusCode).json({ error: message });
 };
