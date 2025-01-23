@@ -49,14 +49,14 @@ router.post("/login", inputSanitizer, inputValidator(loginSchema), async (req, r
     .status(200)
     .cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 15 * 24 * 60 * 60 * 1000, // 15 days
     })
     .cookie("accessToken", accessToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      secure: true,
+      sameSite: "none",
       maxAge: 2 * 60 * 60 * 1000, // 2 hour
     })
     .json({
@@ -73,8 +73,8 @@ router.post("/refreshToken", async (req, res) => {
       .status(403)
       .clearCookie("accessToken", {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
       })
       .json({ error: "Refresh token not received or expired. Please log in!" });
   }
@@ -87,8 +87,8 @@ router.post("/refreshToken", async (req, res) => {
       .status(200)
       .cookie("accessToken", freshAccessToken, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: true,
+        sameSite: "none",
         maxAge: 2 * 60 * 60 * 1000, // 2 hours
       })
       .json({ message: "Access token refreshed successfully!" });
@@ -98,13 +98,13 @@ router.post("/refreshToken", async (req, res) => {
         .status(401)
         .clearCookie("refreshToken", {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
+          secure: true,
+          sameSite: "none",
         })
         .clearCookie("accessToken", {
           httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
+          secure: true,
+          sameSite: "none",
         })
         .json({ error: "Session expired. Please log in!" });
     }
