@@ -12,7 +12,9 @@ cloudinary.config({
 // Set up Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "Uploads/"); // Specify the folder to store files
+    // Use /tmp for temporary storage
+    const tempDir = path.join("/tmp", "Uploads");
+    cb(null, tempDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
