@@ -43,15 +43,13 @@ router.put(
     // Check if user exists
     const userId = req.user._id;
     if (!validId(userId)) {
-      res.status(400).json({ error: "Provide a valid user ID!" });
       res.emit("deleteFiles");
-      return;
+      returnres.status(400).json({ error: "Provide a valid user ID!" });
     }
     const userExists = await Profile.findById(userId).select("name about achievements profilePic");
     if (!userExists) {
-      res.status(404).json({ error: "User not found!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(404).json({ error: "User not found!" });
     }
 
     //Check if data same also here checking profilePic because if profile pic is changed due to fileUploadMiddleware req.body will have updated profile pic
@@ -60,24 +58,21 @@ router.put(
       loda.pick(userExists, ["name", "about", "achievements", "profilePic"])
     );
     if (isEqual) {
-      res.status(400).json({ error: "Details not updated, new information not provided!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(400).json({ error: "Details not updated, new information not provided!" });
     }
 
     // Update the profile
     const updatedProfile = await Profile.findByIdAndUpdate(userId, { $set: req.body }, { new: true }).select("profilePic");
     if (!updateProfile) {
-      res.status(500).json({ error: "Error updating profile!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(500).json({ error: "Error updating profile!" });
     }
 
     // Success scenario
     req.deletableFiles = [...(req?.deletableFiles || []), ...(userExists.profilePic ? [userExists.profilePic] : [])];
-    res.status(200).json({ message: "Profile updated", body: { profilePic: updatedProfile?.profilePic } });
     res.emit("deleteFiles", { success: true });
-    return;
+    return res.status(200).json({ message: "Profile updated", body: { profilePic: updatedProfile?.profilePic } });
   }
 );
 

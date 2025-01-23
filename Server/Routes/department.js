@@ -28,9 +28,8 @@ router.post(
     //Create department
     const newDepartment = await Department.create(req.body);
     if (!newDepartment) {
-      res.status(500).json({ error: "Error creating department!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(500).json({ error: "Error creating department!" });
     }
 
     return res.status(200).json({ message: `${dep.name} created successfully.`, body: newDepartment });
@@ -53,9 +52,8 @@ router.put(
     if (!validId(depId)) return res.status(400).json({ error: "Provide a valid department ID!" });
     const depEx = await Department.findById(depId).select("name logo about");
     if (!depEx) {
-      res.status(404).json({ error: "Department does not exist!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(404).json({ error: "Department does not exist!" });
     }
 
     //Check if some data has changed (if logo changed will be included here)
@@ -64,25 +62,22 @@ router.put(
       loda.pick(depEx, ["name", "about", "logo"])
     );
     if (isEqual) {
-      res.status(400).json({ error: "Details not updated, new details not provided!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(400).json({ error: "Details not updated, new details not provided!" });
     }
 
     const updDep = await Department.findByIdAndUpdate(depId, { $set: req.body }, { new: true });
     if (!updDep) {
-      res.status(500).json({ error: "Failed to update department details." });
       res.emit("deleteFiles");
-      return;
+      return res.status(500).json({ error: "Failed to update department details." });
     }
 
     req.deletableFiles = [...(req?.deletableFiles || []), ...(depEx.logo ? [depEx.logo] : [])];
-    res.status(200).json({
+    res.emit("deleteFiles", { success: true });
+    return res.status(200).json({
       message: `Department details of ${depEx.name} updated successfully.`,
       body: updDep,
     });
-    res.emit("deleteFiles", { success: true });
-    return;
   }
 );
 
@@ -126,9 +121,8 @@ router.delete("/deleteDepartment/:id", authentication, authorization, fileDelete
   await Department.findByIdAndDelete(depId);
 
   // Upon succcess send response and delete files
-  res.status(200).json({ message: "Department and associated data deleted successfully." });
   res.emit("deleteFiles", { success: true });
-  return;
+  return res.status(200).json({ message: "Department and associated data deleted successfully." });
 });
 
 //GET DEPARTMENTS -- Anyone -- Get list of departments

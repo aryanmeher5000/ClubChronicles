@@ -30,17 +30,15 @@ router.post(
     //Check if user exists
     const userId = req.user._id;
     if (!validId(userId)) {
-      res.status(404).json({ error: "User not found!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(404).json({ error: "User not found!" });
     }
 
     // Create new announcement (images and pdf will be already included here due to middleware)
     const newAnnouncement = await Announcement.create({ ...req.body, createdBy: userId });
     if (!newAnnouncement) {
-      res.status(500).send("Internal server error!");
       res.emit("deleteFiles");
-      return;
+      return res.status(500).send("Internal server error!");
     }
 
     return res.status(200).json({ message: "Announcement created.", body: newAnnouncement });
@@ -58,7 +56,7 @@ router.delete("/deleteAnnouncement/:id", authentication, authorization, fileDele
   // Check if deleter is admin or the one who created the announcement
   const { _id, role } = req.user;
   const { createdBy } = announcementExists;
-  if (role !== "ADMIN" || _id != createdBy) return res.status(403).json({ error: "You cannot delete this announcement!" });
+  if (_id !== createdBy && role !== "ADMIN") return res.status(403).json({ error: "You cannot delete this announcement!" });
 
   // Delete related files on Cloud Storage
   if (announcementExists?.pdf) req.deletableFiles = [...(req?.deletableFiles || []), ...announcementExists.pdf];
@@ -68,9 +66,8 @@ router.delete("/deleteAnnouncement/:id", authentication, authorization, fileDele
   const dltAnnc = await Announcement.findByIdAndDelete(anncId);
   if (!dltAnnc) return res.status(500).json({ error: "Error deleting announcement, please try again later!" });
 
-  res.status(200).json({ message: "Announcement deleted successfully.", body: dltAnnc });
   res.emit("deleteFiles", { success: true });
-  return;
+  return res.status(200).json({ message: "Announcement deleted successfully.", body: dltAnnc });
 });
 
 //GET OWN ANNOUNCEMENTS -- Any isAdmin=true

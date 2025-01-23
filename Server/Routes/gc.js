@@ -154,23 +154,22 @@ router.post(
   async (req, res) => {
     const currGcSess = await GC.findOne({ isCurrent: true }).select("_id timeTable");
     if (!currGcSess) {
-      res.status(400).json({ error: "No current GC session to upload time table for, please start a session first!" });
       res.emit("deleteFiles");
-      return;
+      return res
+        .status(400)
+        .json({ error: "No current GC session to upload time table for, please start a session first!" });
     }
 
     if (!req.body?.timeTable) return res.status(400).json({ error: "Provide valid time table!" });
     const tt = await GC.findOneAndUpdate({ isCurrent: true }, { $set: { timeTable: req.body?.timeTable } });
     if (!tt) {
-      res.json({ error: "Error uploading time table, please try again later!" });
       res.emit("deleteFiles");
-      return;
+      return res.json({ error: "Error uploading time table, please try again later!" });
     }
 
     req.deletableFiles = [...(req?.deletableFiles || []), ...(tt.timeTable ? [tt.timeTable] : [])];
-    res.status(200).json({ message: "Time table uploaded.", body: { timeTable: tt.timeTable } });
     res.emit("deleteFiles", { success: true });
-    return;
+    return res.status(200).json({ message: "Time table uploaded.", body: { timeTable: tt.timeTable } });
   }
 );
 
@@ -183,9 +182,8 @@ router.delete("/deleteTimeTable", authentication, authorization, fileDelete, asy
   if (!updatedGC) return res.status(400).json({ error: "Error deleting Time Table!" });
 
   req.deletableFiles = [...(req?.deletableFiles || []), tt.timeTable];
-  res.status(200).json({ message: "Time Table deleted." });
   res.emit("deleteFiles", { success: true });
-  return;
+  return res.status(200).json({ message: "Time Table deleted." });
 });
 
 module.exports = router;

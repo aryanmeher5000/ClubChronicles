@@ -28,32 +28,28 @@ router.post(
   async (req, res) => {
     const { department } = req.user;
     if (!validId(department)) {
-      res.status(400).json({ error: "Provide a valid department ID!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(400).json({ error: "Provide a valid department ID!" });
     }
 
     //Check the department of user and team being created
     if (department !== req.body.department) {
-      res.status(403).json({ error: "You cannot create team for this department!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(403).json({ error: "You cannot create team for this department!" });
     }
 
     // Check if a team with the same name already exists
     const teamExists = await Team.findOne({ name: req.body.name });
     if (teamExists) {
-      res.status(400).json({ error: "Team with the same name already exists!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(400).json({ error: "Team with the same name already exists!" });
     }
 
     // Create and save the new team using Team.create()
     const createTeam = await Team.create(req.body);
     if (!createTeam) {
-      res.status(500).json({ message: "Error creating team!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(500).json({ message: "Error creating team!" });
     }
 
     return res.status(200).json({ message: "Team created.", body: createTeam });
@@ -74,17 +70,15 @@ router.put(
   async (req, res) => {
     const { teamId } = req.params;
     if (!validId(teamId)) {
-      res.status(400).json({ error: "Provide a valid team ID!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(400).json({ error: "Provide a valid team ID!" });
     }
 
     // Check if team exists
     const teamExists = await Team.findById(teamId).select("name description motto logo");
     if (!teamExists) {
-      res.status(404).json({ message: "Team not found!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(404).json({ message: "Team not found!" });
     }
 
     //Check if fields are same
@@ -93,23 +87,20 @@ router.put(
       loda.pick(teamExists, ["name", "description", "motto", "logo"])
     );
     if (isEqual) {
-      res.status(400).json({ error: "Team deatails not updated! New details not provided!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(400).json({ error: "Team deatails not updated! New details not provided!" });
     }
 
     // Update team details
     const updTeam = await Team.findByIdAndUpdate(teamId, { $set: req.body }, { runValidators: true });
     if (!updTeam) {
-      res.status(500).json({ error: "Error updating team details, please try again later!" });
       res.emit("deleteFiles");
-      return;
+      return res.status(500).json({ error: "Error updating team details, please try again later!" });
     }
 
     req.deletableFiles = [...(req?.deletableFiles || []), ...(teamExists.logo ? [teamExists.logo] : [])];
-    res.status(200).json({ message: "Details updated." });
     res.emit("deletableFiles", { success: true });
-    return;
+    return res.status(200).json({ message: "Details updated." });
   }
 );
 

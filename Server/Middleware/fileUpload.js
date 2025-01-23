@@ -18,9 +18,8 @@ function fileUploadMiddleware({ singleFile = false, multipleFiles = false, multi
       const { success, publicIdArray } = await fileUpload(req.files);
       req.uploadedFiles.push(...publicIdArray);
       if (!success) {
-        res.status(500).json({ error: "Error uploading files, please try again later." });
         res.emit("deleteFiles");
-        return;
+        return res.status(500).json({ error: "Error uploading files, please try again later." });
       }
 
       req.body[req.files[0].fieldname] = publicIdArray;
@@ -32,9 +31,8 @@ function fileUploadMiddleware({ singleFile = false, multipleFiles = false, multi
         const { success, publicIdArray } = await fileUpload(fileArray);
         req.uploadedFiles.push(...publicIdArray);
         if (!success) {
-          res.status(500).json({ error: "Error uploading files, please try again later." });
           res.emit("deleteFiles");
-          return;
+          return res.status(500).json({ error: "Error uploading files, please try again later." });
         }
         req.body[field] = publicIdArray;
       }

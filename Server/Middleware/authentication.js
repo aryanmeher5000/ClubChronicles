@@ -4,7 +4,11 @@ const winston = require("winston");
 function authenticationAndTokenDecoding(req, res, next) {
   // Get the token from cookies
   const token = req.cookies.accessToken;
-  if (!token) return res.status(401).json({ error: "Access denied! Please login." });
+
+  // Early return if no token
+  if (!token) {
+    return res.status(401).json({ error: "Access denied! Please login." });
+  }
 
   try {
     // Obtain the secret key
@@ -15,12 +19,23 @@ function authenticationAndTokenDecoding(req, res, next) {
     req.user = decoded;
     next();
   } catch (ex) {
-    if (ex.name === "TokenExpiredError") return res.status(401).json({ error: "Unknown error occurred! Please login!" });
-    else if (ex.name === "JsonWebTokenError") return res.status(403).json({ error: "Invalid token." });
-    else {
-      winston.error(ex?.message, ex);
-      return res.status(500).json({ error: "Internal server error." });
+    // Use a single response handling approach
+    let statusCode = 500;
+    let errorMessage = "Internal server error.";
+
+    if (ex.name === "TokenExpiredError") {
+      statusCode = 401;
+      errorMessage = "Unknown error occurred! Please login!";
+    } else if (ex.name === "JsonWebTokenError") {
+      statusCode = 403;
+      errorMessage = "Invalid token.";
     }
+
+    // Log the error
+    winston.error(ex?.message, ex);
+
+    // Send a single response
+    return res.status(statusCode).json({ error: errorMessage });
   }
 }
 

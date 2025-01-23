@@ -39,7 +39,7 @@ app.use(errorHandler);
 
 //Homepage
 app.get("/api/ClubChronicles", (req, res) => {
-  res.status(200).json({ message: "Welcome to the ClubChronicles." });
+  return res.status(200).json({ message: "Welcome to the ClubChronicles." });
 });
 
 // Start Server

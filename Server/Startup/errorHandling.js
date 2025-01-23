@@ -18,17 +18,17 @@ module.exports = async function (err, req, res, next) {
 
   try {
     // Cleanup uploaded files
-    fileDelete(req, res, next);
+    fileDelete(req, res, next); // Ensure this is awaited if it's async
 
     const fileCleaning = fileCleanup();
-    await fileCleaning(req, res, next);
+    await fileCleaning(req, res, next); // Call as middleware
   } catch (cleanupError) {
     // Log any cleanup errors
     winston.warn("File cleanup failed:", { metadata: cleanupError });
   }
 
   // Send error response
-  res.status(statusCode).json({
+  return res.status(statusCode).json({
     error: message,
     ...(process.env.NODE_ENV === "development" && { details: err.message }), // Include details in dev mode
   });

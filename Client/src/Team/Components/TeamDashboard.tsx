@@ -21,7 +21,7 @@ const TeamDashboard = () => {
       <Heading>Team Management</Heading>
       <Divider mb={4} />
 
-      <Button className="createButton" leftIcon={<AddIcon />} onClick={() => navigate("createTeam")}>
+      <Button colorScheme="green" leftIcon={<AddIcon />} onClick={() => navigate("createTeam")}>
         Create New Team
       </Button>
       <Divider my={4} />
