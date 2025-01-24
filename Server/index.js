@@ -15,7 +15,7 @@ app.use(
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "PUT", "POST", "DELETE"],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Origin"],
     preflightContinue: true,
   })
 );
@@ -39,7 +39,7 @@ app.use(errorHandler);
 
 //Homepage
 app.get("/api/ClubChronicles", (req, res) => {
-  return res.status(200).json({ message: "Welcome to the ClubChronicles." });
+  res.status(200).json({ message: "Welcome to the ClubChronicles." });
 });
 
 // Start Server
