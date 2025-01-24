@@ -1,6 +1,5 @@
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const path = require("path");
 
 // Initialize Cloudinary
@@ -10,13 +9,8 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  allowedFormats: ["png", "jpg", "jpeg", "webp", "pdf"], // Allowed formats
-});
-
 const upload = multer({
-  storage: storage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // Max file size 5MB
   fileFilter: (req, file, cb) => {
     const allowedMimeTypes = ["image/png", "image/jpeg", "image/webp", "image/jpg", "application/pdf"];

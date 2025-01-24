@@ -7,7 +7,6 @@ const {
   inputValidator,
   fileUpload,
   fileDelete,
-  fileCleanup,
 } = require("../Middleware/index");
 const { upload, validId } = require("../Helper/index");
 const { Department, Team, Announcement, Player, createDepartment, updateDepartment } = require("../Models/index");
@@ -23,7 +22,6 @@ router.post(
   inputValidator(createDepartment),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     //Create department
     const newDepartment = await Department.create(req.body);
@@ -46,7 +44,6 @@ router.put(
   inputValidator(updateDepartment),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     const depId = req.params.id;
     if (!validId(depId)) return res.status(400).json({ error: "Provide a valid department ID!" });

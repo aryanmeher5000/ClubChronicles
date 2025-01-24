@@ -7,7 +7,6 @@ const {
   inputValidator,
   fileUpload,
   fileDelete,
-  fileCleanup,
 } = require("../Middleware/index");
 const { GC, Department, createGCRecord } = require("../Models/index");
 const { upload, validId } = require("../Helper/index");
@@ -40,7 +39,6 @@ router.post(
   inputValidator(createGCRecord),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     const sessionExists = await GC.findOne({ year: req.body.year });
     if (sessionExists) {
@@ -150,7 +148,6 @@ router.post(
   upload.single("timeTable"),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     const currGcSess = await GC.findOne({ isCurrent: true }).select("_id timeTable");
     if (!currGcSess) {

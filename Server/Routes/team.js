@@ -7,7 +7,6 @@ const {
   inputValidator,
   fileUpload,
   fileDelete,
-  fileCleanup,
 } = require("../Middleware/index");
 const { Team, Match, Player } = require("../Models/index");
 const { createTeamSchema, updateTeamSchema } = require("../Models/team");
@@ -24,7 +23,6 @@ router.post(
   inputValidator(createTeamSchema),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     const { department } = req.user;
     if (!validId(department)) {
@@ -66,7 +64,6 @@ router.put(
   inputValidator(updateTeamSchema),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     const { teamId } = req.params;
     if (!validId(teamId)) {

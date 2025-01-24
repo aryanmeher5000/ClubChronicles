@@ -8,7 +8,6 @@ const {
   inputValidator,
   fileUpload,
   fileDelete,
-  fileCleanup,
 } = require("../Middleware/index");
 const { Announcement, createAnnouncement } = require("../Models/index");
 
@@ -25,7 +24,6 @@ router.post(
   inputValidator(createAnnouncement),
   fileUpload({ multipleFields: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     //Check if user exists
     const userId = req.user._id;

@@ -1,6 +1,6 @@
 const winston = require("winston");
 const multer = require("multer");
-const { fileDelete, fileCleanup } = require("../Middleware/index");
+const { fileDelete } = require("../Middleware/index");
 
 module.exports = async function (err, req, res, next) {
   // Log the error
@@ -19,12 +19,9 @@ module.exports = async function (err, req, res, next) {
   try {
     // Cleanup uploaded files
     fileDelete(req, res, next); // Ensure this is awaited if it's async
-
-    const fileCleaning = fileCleanup();
-    await fileCleaning(req, res, next); // Call as middleware
-  } catch (cleanupError) {
+  } catch (err) {
     // Log any cleanup errors
-    winston.warn("File cleanup failed:", { metadata: cleanupError });
+    winston.warn("File cleanup failed:", { metadata: err });
   }
 
   // Send error response

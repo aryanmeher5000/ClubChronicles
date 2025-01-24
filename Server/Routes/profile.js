@@ -8,7 +8,6 @@ const {
   inputSanitizer,
   inputValidator,
   fileUpload,
-  fileCleanup,
   fileDelete,
 } = require("../Middleware/index");
 const loda = require("lodash");
@@ -38,7 +37,6 @@ router.put(
   inputValidator(updateProfile, true),
   fileUpload({ singleFile: true }),
   fileDelete,
-  fileCleanup(),
   async (req, res) => {
     // Check if user exists
     const userId = req.user._id;
