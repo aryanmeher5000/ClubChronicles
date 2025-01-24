@@ -32,7 +32,7 @@ router.post(
       return res.status(500).json({ error: "Error creating department!" });
     }
 
-    return res.status(200).json({ message: `${dep.name} created successfully.`, body: newDepartment });
+    return res.status(200).json({ message: `${newDepartment.name} created successfully.`, body: newDepartment });
   }
 );
 
