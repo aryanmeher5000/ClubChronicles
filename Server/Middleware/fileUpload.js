@@ -2,7 +2,6 @@ const { fileUpload } = require("../Helper/index");
 
 function fileUploadMiddleware({ singleFile = false, multipleFiles = false, multipleFields = false }) {
   return async function (req, res, next) {
-    console.log(req.file);
     req.uploadedFiles = [];
 
     // Handle single file upload
