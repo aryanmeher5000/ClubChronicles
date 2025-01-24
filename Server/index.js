@@ -20,6 +20,14 @@ app.use(
   })
 );
 
+// Handle preflight requests (OPTIONS)
+app.options("*", (req, res) => {
+  res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL); // Ensure this is correct
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Access-Control-Allow-Origin");
+  res.send();
+});
+
 //Import db
 require("./Startup/db")();
 
