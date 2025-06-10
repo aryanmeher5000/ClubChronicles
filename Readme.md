@@ -26,6 +26,8 @@ This is a full-stack **MERN** project structured into two main directories: `Cli
 - **Chakra UI** for modern and accessible design
 - **React Hook Form & Zod** for seamless form handling
 - **Cloudinary** for media upload and storage
+- **Zustand** for client side state management
+- **React Query** for data fetching, caching and revalidation
 
 ### 🔧 Server
 
@@ -120,4 +122,4 @@ This project is licensed under the **[MIT License](LICENSE.md)**.
 ## 🙏 Acknowledgments
 
 Special thanks and inspiration from:
-**Omkar Mane** & **Nilanjan Paul**
+**Omkar Mane Bhaiyaa** & **Nilanjan Paul Bhaiyaa**
