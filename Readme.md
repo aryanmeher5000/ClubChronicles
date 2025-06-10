@@ -2,6 +2,8 @@
 
 **A General Championship and Club Management Platform**
 
+---
+
 ## 📝 Project Overview
 
 **Club Chronicles** is a role-based web platform designed to simplify club management and enhance transparency in General Championships (GC). Born out of passion and necessity, this system provides a centralized space for sports enthusiasts to stay informed and involved.
@@ -15,6 +17,8 @@ The platform ensures timely updates about:
 - Efficient club coordination
 
 Whether you're a club head, a player, or an organizer, Club Chronicles makes it easier to manage events and stay on top of everything GC-related.
+
+---
 
 ## 🚀 Tech Stack
 
