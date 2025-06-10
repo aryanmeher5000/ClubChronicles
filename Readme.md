@@ -8,7 +8,8 @@
 
 The platform ensures timely updates about:
 
-- Team recruitments
+- Team recruitments and Information about teams
+- Information about various departments in the college
 - GC announcements and timetables
 - Live scoreboards
 - Efficient club coordination
@@ -39,7 +40,7 @@ This is a full-stack **MERN** project structured into two main directories: `Cli
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/club-chronicles.git
+git clone https://github.com/aryanmeher5000/ClubChronicles
 cd club-chronicles
 ```
 
