@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineUser } from "react-icons/ai";
 import { createImageUrlFromId } from "./utilFxns";
 import useClientStateManagement from "../store";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { useColorMode } from "@chakra-ui/react";
 
 interface NavbarProps {
   sbStat: boolean;
@@ -48,8 +50,26 @@ const Navbar = ({ setSbStat }: NavbarProps) => {
         </Text>
       </Flex>
 
-      <UserProfile />
+      <Flex gap={2} alignItems="center">
+        <ToggleTheme />
+        <UserProfile />
+      </Flex>
     </Flex>
+  );
+};
+
+const ToggleTheme = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  return (
+    <Button
+      onClick={toggleColorMode}
+      alignSelf="center"
+      size={["sm", "sm", "md"]}
+      colorScheme={colorMode === "light" ? "gray" : "orange"}
+    >
+      {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+    </Button>
   );
 };
 

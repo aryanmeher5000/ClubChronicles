@@ -10,7 +10,6 @@ import { FaTableList } from "react-icons/fa6";
 import { CiViewTimeline } from "react-icons/ci";
 import { useNavigate, useLocation } from "react-router-dom";
 import useClientStateManagement from "../store";
-import ToggleMode from "../ToggleTheme";
 
 const Sidebar = ({ sbStat, setSbStat }: { sbStat: boolean; setSbStat: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const nav = useNavigate();
@@ -69,7 +68,6 @@ const Sidebar = ({ sbStat, setSbStat }: { sbStat: boolean; setSbStat: React.Disp
           </Box>
         );
       })}
-      <ToggleMode />
     </Flex>
   );
 };
