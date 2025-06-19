@@ -27,7 +27,7 @@ const Sidebar = ({ sbStat, setSbStat }: { sbStat: boolean; setSbStat: React.Disp
       direction="column"
       bg={bg}
       w={["60%", "60%", "30%", "20%"]}
-      h="91vh"
+      h="calc(100vh - 50px - 12px)"
       maxH="92vh"
       p={2}
       zIndex={1000}
@@ -38,7 +38,7 @@ const Sidebar = ({ sbStat, setSbStat }: { sbStat: boolean; setSbStat: React.Disp
       overflowY="scroll"
       mt={2}
       ml={1}
-      boxShadow={`0px 0px 10px 0.1px ${boxShadow}`}
+      boxShadow={`0px 0px 5px 0.1px ${boxShadow}`}
       className="scrollBarHidden"
     >
       {filteredOptions.map(({ name, icon, link }) => {

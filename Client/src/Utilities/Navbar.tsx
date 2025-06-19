@@ -20,17 +20,17 @@ const Navbar = ({ setSbStat }: NavbarProps) => {
 
   return (
     <Flex
-      flex={1}
+      w="full"
+      h="50px"
+      p={1.5}
       bg={bg}
       color={color}
-      p={1.5}
       borderRadius={10}
       alignItems="center"
       justifyContent="space-between"
       boxShadow={`0px 0px 10px 0.1px ${boxShadow}`}
-      position="sticky"
+      position="fixed"
       top={1}
-      mx={1}
       zIndex={1000}
     >
       <Flex alignItems="center" gap={[1, 1, 4]}>
@@ -38,7 +38,7 @@ const Navbar = ({ setSbStat }: NavbarProps) => {
           color="#f04d50"
           fontSize="4xl"
           p={1.5}
-          borderRadius={15}
+          borderRadius={10}
           _hover={{ bg: bgHam }}
           aria-label="Toggle sidebar"
           cursor="pointer"

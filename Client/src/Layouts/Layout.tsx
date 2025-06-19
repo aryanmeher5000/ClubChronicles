@@ -11,7 +11,14 @@ const Layout = () => {
 
   useEffect(() => {
     mutate();
-  }, [mutate]);
+
+    if (sidebarStatus) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [mutate, sidebarStatus]);
 
   const bg = useColorModeValue("whiteAlpha.800", "blackAlpha.800");
   const color = useColorModeValue("gray.900", "gray.100");
@@ -19,6 +26,9 @@ const Layout = () => {
   return (
     <Box color={color} bg={bg}>
       <Navbar sbStat={sidebarStatus} setSbStat={setSidebarStatus} />
+
+      <Box h="50px" w="full" />
+
       <Sidebar sbStat={sidebarStatus} setSbStat={setSidebarStatus} />
       <Box
         flex={1}
