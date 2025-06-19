@@ -1,30 +1,27 @@
 import {
-  Flex,
-  Heading,
-  Image,
-  Text,
-  useColorModeValue,
   Box,
-  SimpleGrid,
-  Icon,
-  VStack,
-  HStack,
   Button,
   Container,
   Divider,
+  Flex,
+  Heading,
+  Icon,
+  Image,
+  SimpleGrid,
+  Text,
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
-import { FaTrophy, FaUsers, FaCalendarAlt, FaBullseye, FaHandshake, FaStar } from "react-icons/fa";
+import { FaBullseye, FaHandshake, FaTrophy, FaUsers } from "react-icons/fa";
 import { createImageUrlFromId } from "./Utilities/utilFxns";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
   const boxShadow = useColorModeValue("#ddd", "#222");
-  const bgGradient = useColorModeValue(
-    "linear(to-br, blue.50, green.50, yellow.50)",
-    "linear(to-br, blue.900, green.900, yellow.900)"
-  );
   const cardBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.600", "gray.300");
   const accentColor = useColorModeValue("blue.600", "blue.300");
+  const nav = useNavigate();
 
   const features = [
     {
@@ -57,26 +54,21 @@ const Homepage = () => {
   ];
 
   return (
-    <Box minH="100vh" bgGradient={bgGradient}>
+    <Box minH="100vh">
       {/* Hero Section */}
       <Container maxW="7xl" py={10}>
         <Flex justifyContent="center" alignItems="center" gap={8} flexDirection="column" textAlign="center">
           {/* Club Logo */}
-          <Box position="relative">
-            <Image
-              src={createImageUrlFromId("tg2m5rdtu3k9hhxawdmh")}
-              borderRadius="full"
-              boxShadow={`0px 0px 40px 20px ${boxShadow}`}
-              w={["150px", "200px", "250px"]}
-              h={["150px", "200px", "250px"]}
-              objectFit="cover"
-              transition="transform 0.3s ease"
-              _hover={{ transform: "scale(1.05)" }}
-            />
-            <Box position="absolute" top="-10px" right="-10px" bg="yellow.400" borderRadius="full" p={2} boxShadow="lg">
-              <Icon as={FaStar} color="yellow.600" boxSize={6} />
-            </Box>
-          </Box>
+          <Image
+            src={createImageUrlFromId("tg2m5rdtu3k9hhxawdmh")}
+            borderRadius="full"
+            boxShadow={`0px 0px 40px 20px ${boxShadow}`}
+            w={["150px", "200px", "250px"]}
+            h={["150px", "200px", "250px"]}
+            objectFit="cover"
+            transition="transform 0.3s ease"
+            _hover={{ transform: "scale(1.05)" }}
+          />
 
           {/* Main Heading */}
           <VStack spacing={4}>
@@ -95,28 +87,17 @@ const Homepage = () => {
           </VStack>
 
           {/* CTA Buttons */}
-          <HStack spacing={4} mt={6}>
-            <Button
-              size="lg"
-              colorScheme="blue"
-              variant="solid"
-              leftIcon={<FaUsers />}
-              _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
-              transition="all 0.3s ease"
-            >
-              Join Our Community
-            </Button>
-            <Button
-              size="lg"
-              colorScheme="green"
-              variant="outline"
-              leftIcon={<FaCalendarAlt />}
-              _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
-              transition="all 0.3s ease"
-            >
-              View Events
-            </Button>
-          </HStack>
+          <Button
+            size="lg"
+            colorScheme="blue"
+            variant="solid"
+            leftIcon={<FaUsers />}
+            _hover={{ transform: "translateY(-2px)", boxShadow: "lg" }}
+            transition="all 0.3s ease"
+            onClick={() => nav("/login")}
+          >
+            Join Our Community
+          </Button>
         </Flex>
 
         {/* Stats Section */}
@@ -130,7 +111,6 @@ const Homepage = () => {
               textAlign="center"
               boxShadow="lg"
               border="1px solid"
-              borderColor={useColorModeValue("gray.200", "gray.700")}
               _hover={{ transform: "translateY(-5px)" }}
               transition="all 0.3s ease"
             >
@@ -162,7 +142,6 @@ const Homepage = () => {
                 textAlign="center"
                 boxShadow="md"
                 border="1px solid"
-                borderColor={useColorModeValue("gray.200", "gray.700")}
                 _hover={{
                   transform: "translateY(-5px)",
                   boxShadow: "xl",

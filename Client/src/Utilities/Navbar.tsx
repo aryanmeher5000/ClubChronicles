@@ -32,6 +32,7 @@ const Navbar = ({ setSbStat }: NavbarProps) => {
       position="fixed"
       top={1}
       zIndex={1000}
+      mx={1}
     >
       <Flex alignItems="center" gap={[1, 1, 4]}>
         <HamburgerIcon
